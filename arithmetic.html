@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Arithmetic Operations</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        table, th, td {
+            border: 1px solid #999;
+            padding: 8px 16px;
+        }
+        th {
+            background: #e8edf5;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>JavaScript Arithmetic Operations</h2>
+
+    <script>
+        let num1 = Number(prompt("Enter the first number:", "20"));
+        let num2 = Number(prompt("Enter the second number:", "5"));
+
+        function performOperations(a, b) {
+            return {
+                Addition: a + b,
+                Subtraction: a - b,
+                Multiplication: a * b,
+                Division: b !== 0 ? a / b : "Undefined",
+                Modulus: b !== 0 ? a % b : "Undefined",
+                Exponentiation: Math.pow(a, b)
+            };
+        }
+
+        let results = performOperations(num1, num2);
+
+        document.write("<p><b>First Number:</b> " + num1 + "</p>");
+        document.write("<p><b>Second Number:</b> " + num2 + "</p>");
+
+        document.write("<table>");
+        document.write("<tr><th>Operation</th><th>Result</th></tr>");
+
+        for (let operation in results) {
+            document.write(
+                "<tr><td>" + operation + "</td><td>" +
+                results[operation] + "</td></tr>"
+            );
+        }
+
+        document.write("</table>");
+    </script>
+       </body>
+       </html>

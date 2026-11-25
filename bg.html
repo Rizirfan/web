@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Change Background Colour</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            transition: background-color 0.4s ease;
+        }
+        label {
+            display: inline-block;
+            margin: 6px 14px 6px 0;
+        }
+        #info {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        button {
+            margin-top: 12px;
+            padding: 6px 14px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Select a Colour to Change the Background</h2>
+
+    <label>
+        <input type="radio" name="bgColor"
+        value="White" data-hex="#FFFFFF"
+        onclick="changeColor(this.value, this.dataset.hex)" checked>
+        Default White
+    </label>
+
+    <label>
+        <input type="radio" name="bgColor"
+        value="Light Blue" data-hex="#ADD8E6"
+        onclick="changeColor(this.value, this.dataset.hex)">
+        Light Blue
+    </label>
+
+    <label>
+        <input type="radio" name="bgColor"
+        value="Light Green" data-hex="#90EE90"
+        onclick="changeColor(this.value, this.dataset.hex)">
+        Light Green
+    </label>
+
+    <label>
+        <input type="radio" name="bgColor"
+        value="Pink" data-hex="#FFC0CB"
+        onclick="changeColor(this.value, this.dataset.hex)">
+        Pink
+    </label>
+
+    <br>
+
+    <button onclick="resetColor()">Reset to Default</button>
+
+    <p id="info">Current colour: White (#FFFFFF)</p>
+
+    <script>
+        function changeColor(color, hex) {
+            document.body.style.backgroundColor = hex;
+
+            document.getElementById('info').innerText =
+                "Current colour: " + color + " (" + hex + ")";
+        }
+
+        function resetColor() {
+            document.querySelector(
+                'input[value="White"]'
+            ).checked = true;
+
+            changeColor("White", "#FFFFFF");
+        }
+    </script>
+
+</body>
+</html>

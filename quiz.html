@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            max-width: 600px;
+        }
+        .question {
+            margin-bottom: 20px;
+            padding: 10px;
+            border-left: 3px solid #10315f;
+            background: #f7f9fc;
+        }
+        button {
+            padding: 10px 20px;
+            background: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #result {
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Web Tech Quiz</h2>
+
+    <div class="question">
+        <p>1. Which is a programming language?</p>
+        <input type="checkbox" id="q1a"> HTML
+        <input type="checkbox" id="q1b"> Python
+        <input type="checkbox" id="q1c"> CSS
+        <input type="checkbox" id="q1d"> JSON
+    </div>
+
+    <div class="question">
+        <p>2. Type the tag for the largest heading:</p>
+        <input type="text" id="q2">
+    </div>
+
+    <div class="question">
+        <p>3. What does CSS stand for?</p>
+        <input type="radio" name="q3" value="Cascading">
+        Cascading Style Sheets
+
+        <input type="radio" name="q3" value="Computer">
+        Computer Style Sheets
+    </div>
+
+    <div class="question">
+        <p>4. Which colour is used for a Warning alert?</p>
+        <select id="q4">
+            <option value="none">Select an option</option>
+            <option value="Red">Red</option>
+            <option value="Blue">Blue</option>
+            <option value="Yellow">Yellow</option>
+            <option value="Green">Green</option>
+        </select>
+    </div>
+
+    <div class="question">
+        <p>5. Inside which element do we write JavaScript?</p>
+        <input type="radio" name="q5" value="js"> &lt;js&gt;
+        <input type="radio" name="q5" value="script"> &lt;script&gt;
+    </div>
+
+    <button onclick="calculateScore()">Submit Quiz</button>
+
+    <h3 id="result"></h3>
+
+    <script>
+        function calculateScore() {
+            let score = 0;
+
+            if (document.getElementById('q1b').checked)
+                score++;
+
+            if (document.getElementById('q2').value.toLowerCase().trim() === "h1")
+                score++;
+
+            let q3 = document.querySelector(
+                'input[name="q3"]:checked'
+            );
+
+            if (q3 && q3.value === "Cascading")
+                score++;
+
+            if (document.getElementById('q4').value === "Yellow")
+                score++;
+
+            let q5 = document.querySelector(
+                'input[name="q5"]:checked'
+            );
+
+            if (q5 && q5.value === "script")
+                score++;
+
+            let percentage = (score / 5) * 100;
+            let remark;
+
+            if (percentage === 100)
+                remark = "Excellent!";
+            else if (percentage >= 60)
+                remark = "Good job!";
+            else
+                remark = "Keep practising!";
+
+            document.getElementById('result').innerText =
+                "You scored " + score + " out of 5 (" +
+                percentage + "%) — " + remark;
+        }
+    </script>
+
+</body>
+</html>
