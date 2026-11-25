@@ -12,6 +12,19 @@ ng serve
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
+## Node.js and Express API
+
+The Angular SSR server uses Node.js and Express. Build the app, then start the server:
+
+```bash
+npm run build
+npm run serve:ssr:ecomm
+```
+
+The SSR app and API run together at `http://localhost:4000`. Check the API at `http://localhost:4000/api/health`.
+
+> `npm start` (or `ng serve`) starts Angular's frontend development server on port 4200 only; use the build and SSR commands above when you need the Express API.
+
 ## Code scaffolding
 
 Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
