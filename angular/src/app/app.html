@@ -1,0 +1,146 @@
+
+<header>
+  <h2>MyShop</h2>
+
+  <nav>
+    <a (click)="changePage('home')">Home</a>
+    <a (click)="changePage('products')">Products</a>
+    <a (click)="changePage('about')">About</a>
+    <a (click)="changePage('contact')">Contact</a>
+    <a (click)="changePage('cart')">Cart ({{ cart.length }})</a>
+  </nav>
+</header>
+
+<main>
+
+  <!-- HOME PAGE -->
+  <section *ngIf="currentPage === 'home'">
+
+    <div class="hero">
+      <h1>Welcome to MyShop</h1>
+      <p>Discover quality products at affordable prices.</p>
+
+      <button (click)="changePage('products')">
+        Shop Now
+      </button>
+    </div>
+
+    <div class="features">
+      <h2>Why Choose Us?</h2>
+
+      <div class="feature-list">
+        <div>
+          <h3>Quality Products</h3>
+          <p>Find the best products.</p>
+        </div>
+
+        <div>
+          <h3>Best Prices</h3>
+          <p>Shop at affordable prices.</p>
+        </div>
+
+        <div>
+          <h3>Fast Delivery</h3>
+          <p>Quick and safe delivery.</p>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- PRODUCTS PAGE -->
+  <section *ngIf="currentPage === 'products'" class="page">
+
+    <h1>Our Products</h1>
+
+    <div class="product-list">
+
+      <div class="product" *ngFor="let product of products">
+
+        <img [src]="product.image" [alt]="product.name">
+
+        <h3>{{ product.name }}</h3>
+
+        <p>₹{{ product.price }}</p>
+
+        <button (click)="addToCart(product)">
+          Add to Cart
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ABOUT PAGE -->
+  <section *ngIf="currentPage === 'about'" class="page about">
+
+    <h1>About MyShop</h1>
+
+    <p>
+      MyShop is an online shopping platform that provides
+      quality products at affordable prices.
+    </p>
+
+    <p>
+      Our mission is to make shopping simple and convenient.
+    </p>
+
+  </section>
+
+  <!-- CONTACT PAGE -->
+  <section *ngIf="currentPage === 'contact'" class="page">
+
+    <h1>Contact Us</h1>
+
+    <form (submit)="$event.preventDefault(); submitContact()">
+
+      <input type="text" placeholder="Your Name" required>
+
+      <input type="email" placeholder="Your Email" required>
+
+      <textarea placeholder="Your Message" required></textarea>
+
+      <button type="submit">
+        Send Message
+      </button>
+
+    </form>
+
+  </section>
+
+  <!-- CART PAGE -->
+  <section *ngIf="currentPage === 'cart'" class="page">
+
+    <h1>Shopping Cart</h1>
+
+    <p *ngIf="cart.length === 0">
+      Your cart is empty.
+    </p>
+
+    <div class="cart-item" *ngFor="let item of cart; let i = index">
+
+      <span>{{ item.name }} - ₹{{ item.price }}</span>
+
+      <button (click)="removeFromCart(i)">
+        Remove
+      </button>
+
+    </div>
+
+    <h2>Total: ₹{{ total }}</h2>
+
+    <button
+      *ngIf="cart.length > 0"
+      (click)="placeOrder()">
+      Place Order
+    </button>
+
+  </section>
+
+</main>
+
+<footer>
+  <p>© 2026 MyShop. All Rights Reserved.</p>
+</footer>
