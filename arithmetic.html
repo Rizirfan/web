@@ -1,60 +1,83 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Arithmetic Operations</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arithmetic Calculator</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
-        }
-        table {
-            border-collapse: collapse;
-            margin-top: 15px;
-        }
-        table, th, td {
-            border: 1px solid #999;
-            padding: 8px 16px;
-        }
-        th {
-            background: #e8edf5;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: normal;
         }
     </style>
 </head>
 <body>
+    <main>
+        <h1>Arithmetic operations</h1>
+        <p>Enter two numbers to see the results.</p>
 
-    <h2>JavaScript Arithmetic Operations</h2>
+        <form id="calculator-form">
+            <label for="first-number">First number:</label>
+            <input id="first-number" name="firstNumber" type="number" step="any" value="20" required>
+            <br><br>
+            <label for="second-number">Second number:</label>
+            <input id="second-number" name="secondNumber" type="number" step="any" value="5" required>
+            <br><br>
+            <button type="submit">Calculate</button>
+            <p id="message" role="alert" aria-live="polite"></p>
+        </form>
+
+        <section aria-labelledby="results-heading" aria-live="polite">
+            <h2 id="results-heading">Results</h2>
+            <table>
+                <thead><tr><th scope="col">Operation</th><th scope="col">Result</th></tr></thead>
+                <tbody id="results-body"></tbody>
+            </table>
+        </section>
+    </main>
 
     <script>
-        let num1 = Number(prompt("Enter the first number:", "20"));
-        let num2 = Number(prompt("Enter the second number:", "5"));
+        const form = document.querySelector('#calculator-form');
+        const firstNumber = document.querySelector('#first-number');
+        const secondNumber = document.querySelector('#second-number');
+        const resultsBody = document.querySelector('#results-body');
+        const message = document.querySelector('#message');
 
-        function performOperations(a, b) {
-            return {
-                Addition: a + b,
-                Subtraction: a - b,
-                Multiplication: a * b,
-                Division: b !== 0 ? a / b : "Undefined",
-                Modulus: b !== 0 ? a % b : "Undefined",
-                Exponentiation: Math.pow(a, b)
-            };
+        function formatResult(value) {
+            if (!Number.isFinite(value)) return 'Undefined';
+            return Number.isInteger(value) ? String(value) : String(Number(value.toFixed(8)));
         }
 
-        let results = performOperations(num1, num2);
+        function calculate(event) {
+            event.preventDefault();
+            message.textContent = '';
 
-        document.write("<p><b>First Number:</b> " + num1 + "</p>");
-        document.write("<p><b>Second Number:</b> " + num2 + "</p>");
+            if (!form.reportValidity()) return;
 
-        document.write("<table>");
-        document.write("<tr><th>Operation</th><th>Result</th></tr>");
+            const a = firstNumber.valueAsNumber;
+            const b = secondNumber.valueAsNumber;
+            const operations = [
+                ['Addition', a + b],
+                ['Subtraction', a - b],
+                ['Multiplication', a * b],
+                ['Division', b === 0 ? null : a / b],
+                ['Modulus', b === 0 ? null : a % b],
+                ['Exponentiation', a ** b],
+            ];
 
-        for (let operation in results) {
-            document.write(
-                "<tr><td>" + operation + "</td><td>" +
-                results[operation] + "</td></tr>"
-            );
+            resultsBody.replaceChildren(...operations.map(([operation, result]) => {
+                const row = document.createElement('tr');
+                const operationCell = document.createElement('td');
+                const resultCell = document.createElement('td');
+                operationCell.textContent = operation;
+                resultCell.textContent = result === null ? 'Undefined' : formatResult(result);
+                row.append(operationCell, resultCell);
+                return row;
+            }));
         }
 
-        document.write("</table>");
+        form.addEventListener('submit', calculate);
+        form.requestSubmit();
     </script>
-       </body>
-       </html>
+</body>
+</html>
